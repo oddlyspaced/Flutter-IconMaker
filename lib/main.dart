@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:projectminimal/iconlist.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(IconList());
 }
 
 class MyApp extends StatelessWidget {
