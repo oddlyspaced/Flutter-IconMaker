@@ -101,7 +101,7 @@ class _EditorScreenState extends State<EditorScreen> {
                                 ),
                               ),
                               Padding(
-                                padding: new EdgeInsets.all(size),
+                                padding: new EdgeInsets.all(100 - size),
                                 child: Container(
                                   height: double.infinity,
                                   width: double.infinity,
