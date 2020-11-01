@@ -12,6 +12,18 @@ class ThemeConstants {
     fontWeight: FontWeight.bold,
   );
 
+  static final TextStyle title = TextStyle(
+    fontSize: 24,
+    color: ThemeConstants.textPrimaryColor,
+    fontWeight: FontWeight.bold,
+  );
+
+  static final TextStyle subheading = TextStyle(
+    fontSize: 18,
+    color: ThemeConstants.textPrimaryColor,
+    fontWeight: FontWeight.normal,
+  );
+
   static final ThemeData appTheme = ThemeData(
     fontFamily: primaryFontFamily,
   );
