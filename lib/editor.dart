@@ -179,7 +179,21 @@ class _EditorScreenState extends State<EditorScreen> {
                                   size = value;
                                 });
                               },
-                            )
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 16,
+                              ),
+                            ),
+                            Container(
+                              height: 4,
+                              decoration: BoxDecoration(
+                                color: Colors.white24,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(4),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
