@@ -2,17 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:projectminimal/theme.dart';
 
-Color textPrimaryColor = Colors.white;
 List<String> icons = List();
 
 class IconScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: "Helvetica",
-      ),
+      theme: ThemeConstants.appTheme,
       home: IconList(),
     );
   }
@@ -70,7 +68,7 @@ class _IconListState extends State<IconList> {
                   "Icons",
                   style: TextStyle(
                     fontSize: 36,
-                    color: textPrimaryColor,
+                    color: ThemeConstants.textPrimaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -84,8 +82,8 @@ class _IconListState extends State<IconList> {
                   "${icons.length} Available",
                   style: TextStyle(
                     fontSize: 18,
-                    color: textPrimaryColor,
-                    fontWeight: FontWeight.w400,
+                    color: ThemeConstants.textPrimaryColor,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
               ),
@@ -100,16 +98,8 @@ class _IconListState extends State<IconList> {
                   child: Center(
                     child: Wrap(
                       alignment: WrapAlignment.start,
-                      children:
-                          List.generate(icons.length, (index) => index)
-                              .map((e) {
-                        // return Container(
-                        //   height: width * 0.25,
-                        //   width: width * 0.25,
-                        //   child: Icon(Icons.ac_unit),
-                        // );
-                        print("Hello " + icons[e]);
-
+                      children: List.generate(icons.length, (index) => index)
+                          .map((e) {
                         return Container(
                           height: width * 0.25,
                           width: width * 0.25,
@@ -117,10 +107,7 @@ class _IconListState extends State<IconList> {
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: Colors.black,
-                                border: Border.all(
-                                  color: Colors.black,
-                                ),
+                                color: ThemeConstants.iconBackground,
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(16),
                                 ),
