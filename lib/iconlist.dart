@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:projectminimal/editor.dart';
 import 'package:projectminimal/theme.dart';
 
 List<String> icons = List();
@@ -100,23 +101,32 @@ class _IconListState extends State<IconList> {
                       alignment: WrapAlignment.start,
                       children: List.generate(icons.length, (index) => index)
                           .map((e) {
-                        return Container(
-                          height: width * 0.25,
-                          width: width * 0.25,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: ThemeConstants.iconBackground,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16),
-                                ),
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => EditorScreen(
+                                iconAsset: icons[e],
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(24.0),
-                                child: SvgPicture.asset(
-                                  icons[e],
-                                  //"assets/icons/command.svg",
+                            ));
+                          },
+                          child: Container(
+                            height: width * 0.25,
+                            width: width * 0.25,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: ThemeConstants.iconBackground,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(16),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(24.0),
+                                  child: SvgPicture.asset(
+                                    icons[e],
+                                    //"assets/icons/command.svg",
+                                  ),
                                 ),
                               ),
                             ),
