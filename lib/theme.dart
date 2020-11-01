@@ -24,6 +24,13 @@ class ThemeConstants {
     fontWeight: FontWeight.normal,
   );
 
+  static final TextStyle snackbar = TextStyle(
+    fontSize: 18,
+    fontFamily: primaryFontFamily,
+    color: ThemeConstants.textPrimaryColor,
+    fontWeight: FontWeight.normal,
+  );
+
   static final ThemeData appTheme = ThemeData(
     fontFamily: primaryFontFamily,
   );
