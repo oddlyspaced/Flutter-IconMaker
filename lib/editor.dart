@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:projectminimal/theme.dart';
@@ -17,6 +18,13 @@ class EditorScreen extends StatefulWidget {
 }
 
 double size = 0;
+
+// create some values
+Color backgroundColor = Colors.black;
+Color foregroundColor = Colors.white;
+
+Color pickerColor = Color(0xff443a49);
+Color currentColor = Color(0xff443a49);
 
 class _EditorScreenState extends State<EditorScreen> {
   GlobalKey _globalKey = new GlobalKey();
@@ -93,7 +101,7 @@ class _EditorScreenState extends State<EditorScreen> {
                                 aspectRatio: 1,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.black,
+                                    color: backgroundColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(24),
                                     ),
@@ -107,6 +115,7 @@ class _EditorScreenState extends State<EditorScreen> {
                                   width: double.infinity,
                                   child: SvgPicture.asset(
                                     widget.iconAsset,
+                                    color: foregroundColor,
                                   ),
                                 ),
                               ),
@@ -149,13 +158,45 @@ class _EditorScreenState extends State<EditorScreen> {
                                         style: ThemeConstants.subheading,
                                       ),
                                       Expanded(
-                                        child: Container(
-                                          height: 20,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(12),
+                                        child: InkWell(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              child: AlertDialog(
+                                                title: const Text('Select Background color'),
+                                                content: SingleChildScrollView(
+                                                  child: ColorPicker(
+                                                    pickerColor: pickerColor,
+                                                    onColorChanged: (value) {
+                                                      setState(() {
+                                                        backgroundColor = value;
+                                                      });
+                                                    },
+                                                    showLabel: true,
+                                                    pickerAreaHeightPercent: 0.8,
+                                                  ),
+                                                ),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                    child: const Text('Done'),
+                                                    onPressed: () {
+                                                      setState(() => currentColor = pickerColor);
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+
+                                          },
+                                          child: Container(
+                                            height: 20,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(12),
+                                              ),
+                                              color: backgroundColor,
                                             ),
-                                            color: Colors.black,
                                           ),
                                         ),
                                       ),
@@ -177,13 +218,44 @@ class _EditorScreenState extends State<EditorScreen> {
                                         style: ThemeConstants.subheading,
                                       ),
                                       Expanded(
-                                        child: Container(
-                                          height: 20,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(12),
+                                        child: InkWell(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              child: AlertDialog(
+                                                title: const Text('Select Foreground color'),
+                                                content: SingleChildScrollView(
+                                                  child: ColorPicker(
+                                                    pickerColor: pickerColor,
+                                                    onColorChanged: (value) {
+                                                      setState(() {
+                                                        foregroundColor = value;
+                                                      });
+                                                    },
+                                                    showLabel: true,
+                                                    pickerAreaHeightPercent: 0.8,
+                                                  ),
+                                                ),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                    child: const Text('Done'),
+                                                    onPressed: () {
+                                                      setState(() => currentColor = pickerColor);
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                          child: Container(
+                                            height: 20,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(12),
+                                              ),
+                                              color: foregroundColor,
                                             ),
-                                            color: Colors.white,
                                           ),
                                         ),
                                       ),
