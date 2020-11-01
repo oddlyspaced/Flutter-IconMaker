@@ -1,6 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:projectminimal/theme.dart';
+import 'dart:ui' as ui;
 
 class EditorScreen extends StatefulWidget {
   EditorScreen({this.iconAsset});
@@ -14,11 +19,53 @@ class EditorScreen extends StatefulWidget {
 double size = 0;
 
 class _EditorScreenState extends State<EditorScreen> {
+  GlobalKey _globalKey = new GlobalKey();
+  final key = new GlobalKey<ScaffoldState>();
+
+  Future capturePng() async {
+    try {
+      print('inside');
+      RenderRepaintBoundary boundary =
+          _globalKey.currentContext.findRenderObject();
+      ui.Image image = await boundary.toImage(pixelRatio: 10.0);
+      ByteData byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      var pngBytes = byteData.buffer.asUint8List();
+      Image.memory(pngBytes);
+      final result = ImageGallerySaver.saveImage(
+        Uint8List.fromList(pngBytes),
+        quality: 100,
+        name: "test",
+      );
+      print(result);
+      key.currentState.showSnackBar(
+        SnackBar(
+          content: Text(
+            "Saved to Gallery successfully!",
+            style: ThemeConstants.snackbar,
+          ),
+        ),
+      );
+    } catch (e) {
+      key.currentState.showSnackBar(
+        SnackBar(
+          content: Text(
+            "Error in Saving to Gallery!",
+            style: ThemeConstants.snackbar,
+          ),
+        ),
+      );
+      print("ERROR");
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeConstants.appTheme,
       home: Scaffold(
+        key: key,
         body: SafeArea(
           child: Container(
             decoration: BoxDecoration(
@@ -37,31 +84,34 @@ class _EditorScreenState extends State<EditorScreen> {
                       padding: const EdgeInsets.all(24.0),
                       child: Container(
                         width: double.infinity,
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            AspectRatio(
-                              aspectRatio: 1,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(24),
+                        child: RepaintBoundary(
+                          key: _globalKey,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              AspectRatio(
+                                aspectRatio: 1,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(24),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: new EdgeInsets.all(size),
-                              child: Container(
-                                height: double.infinity,
-                                width: double.infinity,
-                                child: SvgPicture.asset(
-                                  widget.iconAsset,
+                              Padding(
+                                padding: new EdgeInsets.all(size),
+                                child: Container(
+                                  height: double.infinity,
+                                  width: double.infinity,
+                                  child: SvgPicture.asset(
+                                    widget.iconAsset,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -194,6 +244,33 @@ class _EditorScreenState extends State<EditorScreen> {
                                 ),
                               ),
                             ),
+                            Spacer(),
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12),
+                                  )),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 32,
+                                  right: 32,
+                                  top: 16,
+                                  bottom: 16,
+                                ),
+                                child: InkWell(
+                                  onTap: () {
+                                    capturePng();
+                                  },
+                                  child: Text(
+                                    "Save",
+                                    textAlign: TextAlign.center,
+                                    style: ThemeConstants.title,
+                                  ),
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),
