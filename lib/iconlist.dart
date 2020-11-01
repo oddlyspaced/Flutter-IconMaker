@@ -97,52 +97,49 @@ class _IconListState extends State<IconList> {
                 ),
               ),
               Expanded(
-                child: ListView(
-                  children: [
-                    SingleChildScrollView(
-                      child: Center(
-                        child: Wrap(
-                          alignment: WrapAlignment.start,
-                          children:
-                              List.generate(icons.length, (index) => index)
-                                  .map((e) {
-                            // return Container(
-                            //   height: width * 0.25,
-                            //   width: width * 0.25,
-                            //   child: Icon(Icons.ac_unit),
-                            // );
-                            print("Hello " + icons[e]);
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Center(
+                    child: Wrap(
+                      alignment: WrapAlignment.start,
+                      children:
+                          List.generate(icons.length, (index) => index)
+                              .map((e) {
+                        // return Container(
+                        //   height: width * 0.25,
+                        //   width: width * 0.25,
+                        //   child: Icon(Icons.ac_unit),
+                        // );
+                        print("Hello " + icons[e]);
 
-                            return Container(
-                              height: width * 0.25,
-                              width: width * 0.25,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    border: Border.all(
-                                      color: Colors.black,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(16),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(24.0),
-                                    child: SvgPicture.asset(
-                                      icons[e],
-                                      //"assets/icons/command.svg",
-                                    ),
-                                  ),
+                        return Container(
+                          height: width * 0.25,
+                          width: width * 0.25,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                border: Border.all(
+                                  color: Colors.black,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(16),
                                 ),
                               ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(24.0),
+                                child: SvgPicture.asset(
+                                  icons[e],
+                                  //"assets/icons/command.svg",
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
                     ),
-                  ],
+                  ),
                 ),
               )
             ],
