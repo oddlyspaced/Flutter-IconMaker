@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectminimal/iconlist.dart';
 import 'package:projectminimal/theme.dart';
 
 class PagerScreen extends StatefulWidget {
@@ -25,6 +26,10 @@ class PagerWidget extends StatefulWidget {
 }
 
 class _PagerState extends State<PagerWidget> {
+
+  int index = 0;
+  List<String> titles = ["ICONS", "HAHA", "YES"];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,17 +56,20 @@ class _PagerState extends State<PagerWidget> {
                 left: 24,
               ),
               child: Text(
-                "ICONS",
+                titles[index],
                 style: ThemeConstants.heading,
               ),
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  0, 24, 0, 24
-                ),
+                padding: const EdgeInsets.fromLTRB(0, 24, 0, 24),
                 child: PageView.builder(
-                  itemCount: 5,
+                  physics: BouncingScrollPhysics(),
+                  itemCount: titles.length,
+                  onPageChanged: (page) {
+                    index = page;
+                    setState(() {});
+                  },
                   controller: PageController(
                     initialPage: 0,
                     viewportFraction: 0.9,
@@ -74,9 +82,12 @@ class _PagerState extends State<PagerWidget> {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                            color: (position % 2 == 0)? Colors.green : Colors.blue,
-                            borderRadius: BorderRadius.all(Radius.circular(24),)
-                        ),
+                            color: (position % 2 == 0)
+                                ? Colors.green
+                                : Colors.blue,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(24),
+                            )),
                       ),
                     );
                   },
