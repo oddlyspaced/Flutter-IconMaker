@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
@@ -38,6 +40,21 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   double size = 0;
 
+  List<String> imagePaths;
+
+  Future _initImages() async {
+    final manifestContent =
+    await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
+
+    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+    imagePaths = manifestMap.keys
+        .where((String key) => key.contains('icons/'))
+        .where((String key) => key.contains('.svg'))
+        .toList();
+    // start animation after the files have been loaded
+    coverAnimationController.forward();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -57,7 +74,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          coverAnimationController.forward();
+          _initImages();
+          //coverAnimationController.forward();
         }
       });
 
