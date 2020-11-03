@@ -106,8 +106,8 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
 
   double _transitionHeight;
 
-  Animation<double> _fadeIn, _fadeOut;
-  Animation<Alignment> _slideIn, _slideOut;
+  Animation<double> _fadeIn;
+  Animation<Alignment> _slideIn;
 
   bool _isCurrentlyPausing = false;
 
@@ -155,10 +155,10 @@ class _RotatingTextState extends State<RotateAnimatedTextKit>
           child: textWidget,
           builder: (BuildContext context, Widget child) {
             return AlignTransition(
-              alignment: _slideIn.value.y != 0.0 ? _slideIn : _slideOut,
+              alignment: _slideIn,
               child: Opacity(
                 opacity:
-                _fadeIn.value != 1.0 ? _fadeIn.value : _fadeOut.value,
+                _fadeIn.value,
                 child: child,
               ),
             );
