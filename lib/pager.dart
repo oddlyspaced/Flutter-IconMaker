@@ -54,7 +54,7 @@ class _PagerState extends State<PagerWidget> {
                 top: 16,
                 left: 24,
               ),
-              child: RotateAnimatedTextKit(
+              child: AnimatedEntryText(
                 key: ValueKey(titles[index]),
                 text: titles[index],
                 duration: Duration(
