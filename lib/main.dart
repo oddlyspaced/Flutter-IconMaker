@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:projectminimal/iconlist.dart';
+import 'package:projectminimal/pager.dart';
 import 'package:projectminimal/splash.dart';
 
 void main() {
-  runApp(SplashScreen());
+  runApp(PagerScreen());
 }
 
 class MyApp extends StatelessWidget {
