@@ -1,7 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 
-class RotateAnimatedTextKit extends StatefulWidget {
+class AnimatedEntryText extends StatefulWidget {
   /// [String] that would be displayed subsequently in the animation.
   final String text;
 
@@ -40,7 +39,7 @@ class RotateAnimatedTextKit extends StatefulWidget {
   /// By default it is set to [TextAlign.start]
   final TextAlign textAlign;
 
-  const RotateAnimatedTextKit({
+  const AnimatedEntryText({
     Key key,
     @required this.text,
     this.textStyle,
@@ -60,7 +59,7 @@ class RotateAnimatedTextKit extends StatefulWidget {
   _RotatingTextState createState() => _RotatingTextState();
 }
 
-class _RotatingTextState extends State<RotateAnimatedTextKit>
+class _RotatingTextState extends State<AnimatedEntryText>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
