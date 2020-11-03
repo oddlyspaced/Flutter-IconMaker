@@ -163,7 +163,8 @@ class _EditorScreenState extends State<EditorScreen> {
                                             showDialog(
                                               context: context,
                                               child: AlertDialog(
-                                                title: const Text('Select Background color'),
+                                                title: const Text(
+                                                    'Select Background color'),
                                                 content: SingleChildScrollView(
                                                   child: ColorPicker(
                                                     pickerColor: pickerColor,
@@ -173,21 +174,24 @@ class _EditorScreenState extends State<EditorScreen> {
                                                       });
                                                     },
                                                     showLabel: true,
-                                                    pickerAreaHeightPercent: 0.8,
+                                                    pickerAreaHeightPercent:
+                                                        0.8,
                                                   ),
                                                 ),
                                                 actions: <Widget>[
                                                   FlatButton(
                                                     child: const Text('Done'),
                                                     onPressed: () {
-                                                      setState(() => currentColor = pickerColor);
-                                                      Navigator.of(context).pop();
+                                                      setState(() =>
+                                                          currentColor =
+                                                              pickerColor);
+                                                      Navigator.of(context)
+                                                          .pop();
                                                     },
                                                   ),
                                                 ],
                                               ),
                                             );
-
                                           },
                                           child: Container(
                                             height: 20,
@@ -223,7 +227,8 @@ class _EditorScreenState extends State<EditorScreen> {
                                             showDialog(
                                               context: context,
                                               child: AlertDialog(
-                                                title: const Text('Select Foreground color'),
+                                                title: const Text(
+                                                    'Select Foreground color'),
                                                 content: SingleChildScrollView(
                                                   child: ColorPicker(
                                                     pickerColor: pickerColor,
@@ -233,15 +238,19 @@ class _EditorScreenState extends State<EditorScreen> {
                                                       });
                                                     },
                                                     showLabel: true,
-                                                    pickerAreaHeightPercent: 0.8,
+                                                    pickerAreaHeightPercent:
+                                                        0.8,
                                                   ),
                                                 ),
                                                 actions: <Widget>[
                                                   FlatButton(
                                                     child: const Text('Done'),
                                                     onPressed: () {
-                                                      setState(() => currentColor = pickerColor);
-                                                      Navigator.of(context).pop();
+                                                      setState(() =>
+                                                          currentColor =
+                                                              pickerColor);
+                                                      Navigator.of(context)
+                                                          .pop();
                                                     },
                                                   ),
                                                 ],

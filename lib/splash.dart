@@ -79,7 +79,10 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         if (status == AnimationStatus.completed) {
           //initState();
           print("Animation over");
-          Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: PagerScreen()));
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.fade, child: PagerScreen()));
         }
       });
 
