@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:projectminimal/iconlist.dart';
+import 'package:projectminimal/splash.dart';
 
 void main() {
-  runApp(IconScreen());
+  runApp(SplashScreen());
 }
 
 class MyApp extends StatelessWidget {
