@@ -75,7 +75,7 @@ class _RotatingTextState extends State<AnimatedEntryText>
     super.initState();
 
     _transitionHeight =
-        widget.transitionHeight ?? (widget.textStyle.fontSize * 10 / 3);
+        widget.transitionHeight ?? (widget.textStyle.fontSize * 10 / 4);
 
     _initAnimation();
     _nextAnimation();

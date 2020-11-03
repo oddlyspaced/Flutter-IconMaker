@@ -74,7 +74,7 @@ class _PagerState extends State<PagerWidget> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 24, 0, 24),
+                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                 child: PageView.builder(
                   physics: BouncingScrollPhysics(),
                   itemCount: titles.length,
@@ -84,7 +84,7 @@ class _PagerState extends State<PagerWidget> {
                   },
                   controller: PageController(
                     initialPage: 0,
-                    viewportFraction: 0.9,
+                    viewportFraction: 0.90,
                   ),
                   itemBuilder: (context, position) {
                     return Padding(
@@ -92,24 +92,30 @@ class _PagerState extends State<PagerWidget> {
                         left: 12,
                         right: 12,
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color:
-                              (position % 2 == 0) ? Colors.green : Colors.blue,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(24),
-                          ),
-                        ),
-                        child: Text(
-                          widget.imagePaths.length.toString(),
-                        ),
-                      ),
+                      child: ListPreview(),
                     );
                   },
                 ),
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ListPreview extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(24),
+        ),
+        image: DecorationImage(
+          image: AssetImage("assets/wall.jpeg"),
+          fit: BoxFit.cover,
         ),
       ),
     );
