@@ -4,7 +4,7 @@ import 'package:projectminimal/pager.dart';
 import 'package:projectminimal/splash.dart';
 
 void main() {
-  runApp(PagerScreen());
+  runApp(SplashScreen());
 }
 
 class MyApp extends StatelessWidget {

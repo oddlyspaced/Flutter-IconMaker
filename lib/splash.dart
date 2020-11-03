@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:projectminimal/pager.dart';
 import 'package:projectminimal/theme.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -55,8 +57,6 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
       })
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          //initState();
-          print("Animation over");
           coverAnimationController.forward();
         }
       });
@@ -64,7 +64,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     coverAnimationController = AnimationController(
       vsync: this,
       duration: Duration(
-        seconds: 1,
+        milliseconds: 500,
       ),
     );
     coverAnimation = Tween<double>(
@@ -79,9 +79,11 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         if (status == AnimationStatus.completed) {
           //initState();
           print("Animation over");
-          setState(() {});
+          Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: PagerScreen()));
         }
       });
+
+    revealAnimationController.forward();
   }
 
   @override
