@@ -50,7 +50,6 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
       end: offsetMax,
     ).animate(revealAnimationController)
       ..addListener(() {
-        print("Animation");
         offset = revealAnimation.value;
         setState(() {});
       })
@@ -73,7 +72,6 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
       end: 1000,
     ).animate(coverAnimationController)
       ..addListener(() {
-        print("Animation");
         size = coverAnimation.value;
         setState(() {});
       })
