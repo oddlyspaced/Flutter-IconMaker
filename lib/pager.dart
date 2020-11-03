@@ -3,6 +3,10 @@ import 'package:projectminimal/text_anim.dart';
 import 'package:projectminimal/theme.dart';
 
 class PagerScreen extends StatefulWidget {
+  PagerScreen(this.imagePaths);
+
+  final List<String> imagePaths;
+
   @override
   _PagerScreenState createState() => _PagerScreenState();
 }
@@ -14,13 +18,17 @@ class _PagerScreenState extends State<PagerScreen> {
       debugShowCheckedModeBanner: false,
       theme: ThemeConstants.appTheme,
       home: Scaffold(
-        body: PagerWidget(),
+        body: PagerWidget(widget.imagePaths),
       ),
     );
   }
 }
 
 class PagerWidget extends StatefulWidget {
+  PagerWidget(this.imagePaths);
+
+  final List<String> imagePaths;
+
   @override
   _PagerState createState() => _PagerState();
 }
@@ -91,6 +99,9 @@ class _PagerState extends State<PagerWidget> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(24),
                           ),
+                        ),
+                        child: Text(
+                          widget.imagePaths.length.toString(),
                         ),
                       ),
                     );

@@ -44,7 +44,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   Future _initImages() async {
     final manifestContent =
-    await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
+        await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
 
     final Map<String, dynamic> manifestMap = json.decode(manifestContent);
     imagePaths = manifestMap.keys
@@ -98,9 +98,12 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
           //initState();
           print("Animation over");
           Navigator.push(
-              context,
-              PageTransition(
-                  type: PageTransitionType.fade, child: PagerScreen()));
+            context,
+            PageTransition(
+              type: PageTransitionType.fade,
+              child: PagerScreen(imagePaths),
+            ),
+          );
         }
       });
 
