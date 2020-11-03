@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectminimal/iconlist.dart';
+import 'package:projectminimal/text_anim.dart';
 import 'package:projectminimal/theme.dart';
 
 class PagerScreen extends StatefulWidget {
@@ -26,7 +27,6 @@ class PagerWidget extends StatefulWidget {
 }
 
 class _PagerState extends State<PagerWidget> {
-
   int index = 0;
   List<String> titles = ["ICONS", "HAHA", "YES"];
 
@@ -55,9 +55,18 @@ class _PagerState extends State<PagerWidget> {
                 top: 16,
                 left: 24,
               ),
-              child: Text(
-                titles[index],
-                style: ThemeConstants.heading,
+              child: RotateAnimatedTextKit(
+                text: "ICONS dope",
+                pause: Duration(
+                  milliseconds: 500,
+                ),
+                isRepeatingAnimation: true,
+                duration: Duration(
+                  milliseconds: 500,
+                ),
+                repeatForever: true,
+                textStyle: ThemeConstants.heading,
+                textAlign: TextAlign.start,
               ),
             ),
             Expanded(
@@ -82,12 +91,12 @@ class _PagerState extends State<PagerWidget> {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                            color: (position % 2 == 0)
-                                ? Colors.green
-                                : Colors.blue,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(24),
-                            )),
+                          color:
+                              (position % 2 == 0) ? Colors.green : Colors.blue,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(24),
+                          ),
+                        ),
                       ),
                     );
                   },
