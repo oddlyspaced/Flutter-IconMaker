@@ -84,8 +84,8 @@ class _IconListState extends State<IconList> {
                         child: InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => EditorScreen(
-                                    iconAsset: imagePaths[index])));
+                                builder: (context) =>
+                                    EditorScreen(imagePaths[index])));
                           },
                           child: Container(
                             decoration: BoxDecoration(

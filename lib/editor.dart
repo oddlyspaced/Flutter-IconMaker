@@ -9,7 +9,7 @@ import 'package:projectminimal/theme.dart';
 import 'dart:ui' as ui;
 
 class EditorScreen extends StatefulWidget {
-  EditorScreen({this.iconAsset});
+  EditorScreen(this.iconAsset);
 
   final String iconAsset;
 
