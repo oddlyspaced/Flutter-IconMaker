@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:projectminimal/editor.dart';
 import 'package:projectminimal/theme.dart';
 
 List<String> imagePaths = List();
 
 class IconScreen extends StatelessWidget {
   IconScreen(this.icons);
+
   final List<String> icons;
+
   @override
   Widget build(BuildContext context) {
     imagePaths = icons;
@@ -78,18 +81,25 @@ class _IconListState extends State<IconList> {
                     children: List.generate(imagePaths.length, (index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: ThemeConstants.iconBackground,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(16),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => EditorScreen(
+                                    iconAsset: imagePaths[index])));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: ThemeConstants.iconBackground,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(16),
+                              ),
                             ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(24.0),
-                            child: SvgPicture.asset(
-                              imagePaths[index],
-                              //"assets/icons/command.svg",
+                            child: Padding(
+                              padding: const EdgeInsets.all(24.0),
+                              child: SvgPicture.asset(
+                                imagePaths[index],
+                                //"assets/icons/command.svg",
+                              ),
                             ),
                           ),
                         ),
