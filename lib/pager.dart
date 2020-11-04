@@ -102,6 +102,8 @@ class _PagerState extends State<PagerWidget> {
                   itemBuilder: (context, position) {
                     return Padding(
                       padding: const EdgeInsets.only(
+                        left: 12,
+                        right: 12,
                         bottom: 24,
                       ),
                       child: previews[position],
@@ -184,8 +186,120 @@ class ListPreview extends StatelessWidget {
 }
 
 class TemplatePreview extends StatelessWidget {
+
+  final List<TemplateItem> templates = [
+    TemplateItem("Minimalist Black", Colors.black, Colors.white),
+    TemplateItem("Minimalist White", Colors.white, Colors.black),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(24),
+            ),
+            image: DecorationImage(
+              image: AssetImage("assets/wall.jpeg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: templates.length,
+            itemBuilder: (context, position) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              templates[position].title,
+                              style: ThemeConstants.subheading,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 8,
+                                right: 8,
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: templates[position].backgroundColor,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8),
+                                  ),
+                                ),
+                                height: 16,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 8,
+                                right: 8,
+                              ),
+                              child: Container(
+                                height: 16,
+                                decoration: BoxDecoration(
+                                  color: templates[position].foregroundColor,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(24),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+              16,
+              8,
+              16,
+              8,
+            ),
+            child: Text(
+              templates.length.toString() + " templates",
+              style: ThemeConstants.title.copyWith(color: Colors.black),
+            ),
+          ),
+        ),
+      ],
+    );
   }
+}
+
+class TemplateItem {
+  TemplateItem(this.title, this.backgroundColor, this.foregroundColor);
+
+  final String title;
+  final Color backgroundColor, foregroundColor;
 }
