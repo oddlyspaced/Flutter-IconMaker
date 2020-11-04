@@ -73,49 +73,33 @@ class _IconListState extends State<IconList> {
                 ),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Center(
-                    child: Wrap(
-                      alignment: WrapAlignment.start,
-                      children: List.generate(imagePaths.length, (index) => index)
-                          .map((e) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => EditorScreen(
-                                iconAsset: imagePaths[e],
-                              ),
-                            ));
-                          },
-                          child: Container(
-                            height: width * 0.25,
-                            width: width * 0.25,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: ThemeConstants.iconBackground,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(16),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(24.0),
-                                  child: SvgPicture.asset(
-                                    imagePaths[e],
-                                    //"assets/icons/command.svg",
-                                  ),
-                                ),
-                              ),
+                child: Container(
+                  child: GridView.count(
+                    physics: BouncingScrollPhysics(),
+                    crossAxisCount: 4,
+                    children: List.generate(imagePaths.length, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: ThemeConstants.iconBackground,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(16),
                             ),
                           ),
-                        );
-                      }).toList(),
-                    ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(24.0),
+                            child: SvgPicture.asset(
+                              imagePaths[index],
+                              //"assets/icons/command.svg",
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
