@@ -13,10 +13,7 @@ class IconScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     imagePaths = icons;
-    return MaterialApp(
-      theme: ThemeConstants.appTheme,
-      home: IconList(),
-    );
+    return IconList();
   }
 }
 
@@ -40,33 +37,48 @@ class _IconListState extends State<IconList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 8,
-                  left: 24,
-                ),
-                child: Text(
-                  "Icons",
-                  style: TextStyle(
-                    fontSize: 36,
-                    color: ThemeConstants.textPrimaryColor,
-                    fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 24,
+                        top: 24,
+                        bottom: 24,
+                      ),
+                      child: SvgPicture.asset("assets/icons/arrow_left.svg"),
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 4,
-                  left: 24,
-                ),
-                child: Text(
-                  "${imagePaths.length} Available",
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: ThemeConstants.textPrimaryColor,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 24,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Icons",
+                          style: TextStyle(
+                            fontSize: 36,
+                            color: ThemeConstants.textPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "${imagePaths.length} Available",
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: ThemeConstants.textPrimaryColor,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(
