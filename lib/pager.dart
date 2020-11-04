@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:projectminimal/text_anim.dart';
 import 'package:projectminimal/theme.dart';
 
-List<String> images;
+List<String> imagePaths;
 
 class PagerScreen extends StatefulWidget {
   PagerScreen(this.imagePaths);
@@ -17,7 +17,7 @@ class PagerScreen extends StatefulWidget {
 class _PagerScreenState extends State<PagerScreen> {
   @override
   Widget build(BuildContext context) {
-    images = widget.imagePaths;
+    imagePaths = widget.imagePaths;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeConstants.appTheme,
@@ -138,7 +138,7 @@ class ListPreview extends StatelessWidget {
           child: GridView.count(
             physics: NeverScrollableScrollPhysics(),
             crossAxisCount: 4,
-            children: List.generate(images.length, (index) {
+            children: List.generate(imagePaths.length, (index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -151,7 +151,7 @@ class ListPreview extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: SvgPicture.asset(
-                      images[index],
+                      imagePaths[index],
                       //"assets/icons/command.svg",
                     ),
                   ),
@@ -175,7 +175,7 @@ class ListPreview extends StatelessWidget {
               8,
             ),
             child: Text(
-              images.length.toString() + " icons",
+              imagePaths.length.toString() + " icons",
               style: ThemeConstants.title.copyWith(color: Colors.black),
             ),
           ),
