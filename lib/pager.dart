@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:projectminimal/iconlist.dart';
 import 'package:projectminimal/text_anim.dart';
 import 'package:projectminimal/theme.dart';
 
@@ -36,7 +37,11 @@ class PagerWidget extends StatefulWidget {
 class _PagerState extends State<PagerWidget> {
   int index = 0;
   List<String> titles = ["ICONS", "TEMPLATES", "WALLPAPERS"];
-  List<Widget> previews = [IconListPreview(), TemplatePreview(), IconListPreview()];
+  List<Widget> previews = [
+    IconListPreview(),
+    TemplatePreview(),
+    IconListPreview()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -122,71 +127,76 @@ class _PagerState extends State<PagerWidget> {
 class IconListPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(24),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => IconScreen()));
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(24),
+              ),
+              image: DecorationImage(
+                image: AssetImage("assets/wall.jpeg"),
+                fit: BoxFit.cover,
+              ),
             ),
-            image: DecorationImage(
-              image: AssetImage("assets/wall.jpeg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: GridView.count(
-            physics: NeverScrollableScrollPhysics(),
-            crossAxisCount: 4,
-            children: List.generate(imagePaths.length, (index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: ThemeConstants.iconBackground,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
+            child: GridView.count(
+              physics: NeverScrollableScrollPhysics(),
+              crossAxisCount: 4,
+              children: List.generate(imagePaths.length, (index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: ThemeConstants.iconBackground,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(16),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: SvgPicture.asset(
+                        imagePaths[index],
+                        //"assets/icons/command.svg",
+                      ),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: SvgPicture.asset(
-                      imagePaths[index],
-                      //"assets/icons/command.svg",
-                    ),
-                  ),
-                ),
-              );
-            }),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(24),
+                );
+              }),
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-              16,
-              8,
-              16,
-              8,
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(24),
+              ),
             ),
-            child: Text(
-              imagePaths.length.toString() + " icons",
-              style: ThemeConstants.title.copyWith(color: Colors.black),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                16,
+                8,
+                16,
+                8,
+              ),
+              child: Text(
+                imagePaths.length.toString() + " icons",
+                style: ThemeConstants.title.copyWith(color: Colors.black),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
 class TemplatePreview extends StatelessWidget {
-
   final List<TemplateItem> templates = [
     TemplateItem("Minimalist Black", Colors.black, Colors.white),
     TemplateItem("Minimalist White", Colors.white, Colors.black),
