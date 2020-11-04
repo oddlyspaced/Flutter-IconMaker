@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:projectminimal/editor.dart';
@@ -8,8 +6,11 @@ import 'package:projectminimal/theme.dart';
 List<String> imagePaths = List();
 
 class IconScreen extends StatelessWidget {
+  IconScreen(this.icons);
+  final List<String> icons;
   @override
   Widget build(BuildContext context) {
+    imagePaths = icons;
     return MaterialApp(
       theme: ThemeConstants.appTheme,
       home: IconList(),
@@ -23,31 +24,9 @@ class IconList extends StatefulWidget {
 }
 
 class _IconListState extends State<IconList> {
-  Future _initImages() async {
-    final manifestContent =
-        await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
-
-    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-    final imagePaths = manifestMap.keys
-        .where((String key) => key.contains('icons/'))
-        .where((String key) => key.contains('.svg'))
-        .toList();
-    loadIcons(imagePaths);
-  }
-
-  void loadIcons(List<String> ic) {
-    setState(() {
-      imagePaths = ic;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    if (imagePaths.length == 0) {
-      _initImages();
-    }
-
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

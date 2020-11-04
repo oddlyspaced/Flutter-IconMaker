@@ -130,7 +130,7 @@ class IconListPreview extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => IconScreen()));
+            .push(MaterialPageRoute(builder: (context) => IconScreen(imagePaths)));
       },
       child: Stack(
         alignment: Alignment.center,
