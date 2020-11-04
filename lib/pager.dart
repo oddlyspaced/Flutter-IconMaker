@@ -36,6 +36,7 @@ class PagerWidget extends StatefulWidget {
 class _PagerState extends State<PagerWidget> {
   int index = 0;
   List<String> titles = ["ICONS", "TEMPLATES", "WALLPAPERS"];
+  List<Widget> previews = [ListPreview(), TemplatePreview(), ListPreview()];
 
   @override
   Widget build(BuildContext context) {
@@ -101,10 +102,9 @@ class _PagerState extends State<PagerWidget> {
                   itemBuilder: (context, position) {
                     return Padding(
                       padding: const EdgeInsets.only(
-                        left: 12,
-                        right: 12,
+                        bottom: 24,
                       ),
-                      child: ListPreview(),
+                      child: previews[position],
                     );
                   },
                 ),
@@ -180,5 +180,12 @@ class ListPreview extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class TemplatePreview extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
