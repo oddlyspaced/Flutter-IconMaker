@@ -45,12 +45,24 @@ class _PagerState extends State<PagerWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Text(
-                "P R J K T\nM N I M L",
-                style: ThemeConstants.title,
-              ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Text(
+                    "P R J K T\nM N I M L",
+                    style: ThemeConstants.title,
+                  ),
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: SvgPicture.asset(
+                    "assets/icons/command.svg",
+                    color: Colors.white,
+                  ),
+                )
+              ],
             ),
             Container(
               color: Colors.white70,
@@ -108,40 +120,65 @@ class _PagerState extends State<PagerWidget> {
 class ListPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(24),
-        ),
-        image: DecorationImage(
-          image: AssetImage("assets/wall.jpeg"),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: GridView.count(
-        physics: NeverScrollableScrollPhysics(),
-        crossAxisCount: 4,
-        children: List.generate(images.length, (index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: ThemeConstants.iconBackground,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: SvgPicture.asset(
-                  images[index],
-                  //"assets/icons/command.svg",
-                ),
-              ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(24),
             ),
-          );
-        }),
-      ),
+            image: DecorationImage(
+              image: AssetImage("assets/wall.jpeg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: GridView.count(
+            physics: NeverScrollableScrollPhysics(),
+            crossAxisCount: 4,
+            children: List.generate(images.length, (index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ThemeConstants.iconBackground,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: SvgPicture.asset(
+                      images[index],
+                      //"assets/icons/command.svg",
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(24),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+              16,
+              8,
+              16,
+              8,
+            ),
+            child: Text(
+              images.length.toString() + " icons",
+              style: ThemeConstants.title.copyWith(color: Colors.black),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
