@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:projectminimal/editor.dart';
 import 'package:projectminimal/theme.dart';
 
 List<String> imagePaths = List();
@@ -26,7 +25,6 @@ class IconList extends StatefulWidget {
 class _IconListState extends State<IconList> {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
