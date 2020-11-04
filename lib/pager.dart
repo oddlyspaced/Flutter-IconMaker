@@ -36,7 +36,7 @@ class PagerWidget extends StatefulWidget {
 class _PagerState extends State<PagerWidget> {
   int index = 0;
   List<String> titles = ["ICONS", "TEMPLATES", "WALLPAPERS"];
-  List<Widget> previews = [ListPreview(), TemplatePreview(), ListPreview()];
+  List<Widget> previews = [IconListPreview(), TemplatePreview(), IconListPreview()];
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +119,7 @@ class _PagerState extends State<PagerWidget> {
   }
 }
 
-class ListPreview extends StatelessWidget {
+class IconListPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
