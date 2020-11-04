@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:projectminimal/text_anim.dart';
 import 'package:projectminimal/theme.dart';
 
-
 List<String> images;
 
 class PagerScreen extends StatefulWidget {
   PagerScreen(this.imagePaths);
+
   final List<String> imagePaths;
 
   @override
@@ -106,7 +106,6 @@ class _PagerState extends State<PagerWidget> {
 }
 
 class ListPreview extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -119,34 +118,29 @@ class ListPreview extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Wrap(
-          alignment: WrapAlignment.start,
-          children: List.generate(images.length, (index) => index)
-              .map((e) {
-            return Container(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: ThemeConstants.iconBackground,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: SvgPicture.asset(
-                      images[e],
-                      //"assets/icons/command.svg",
-                    ),
-                  ),
+      child: GridView.count(
+        physics: NeverScrollableScrollPhysics(),
+        crossAxisCount: 4,
+        children: List.generate(images.length, (index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: ThemeConstants.iconBackground,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16),
                 ),
               ),
-            );
-          }).toList(),
-        ),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: SvgPicture.asset(
+                  images[index],
+                  //"assets/icons/command.svg",
+                ),
+              ),
+            ),
+          );
+        }),
       ),
     );
   }
