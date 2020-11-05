@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:projectminimal/editor.dart';
+import 'package:projectminimal/editor_new.dart';
 import 'package:projectminimal/theme.dart';
 
 List<String> imagePaths = List();
@@ -97,7 +97,7 @@ class _IconListState extends State<IconList> {
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
-                                    EditorScreen(imagePaths[index])));
+                                    EditorEditorScreen(imagePaths[index])));
                           },
                           child: Container(
                             decoration: BoxDecoration(
