@@ -6,7 +6,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:projectminimal/editor.dart';
 import 'package:projectminimal/theme.dart';
 
 String iconAsset;
@@ -18,6 +17,8 @@ Color foregroundColor = Colors.white;
 
 Color pickerColor = Color(0xff443a49);
 Color currentColor = Color(0xff443a49);
+
+double size = 0;
 
 class EditorEditorScreen extends StatefulWidget {
   EditorEditorScreen(this.icon);
