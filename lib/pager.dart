@@ -66,11 +66,11 @@ class PagerWidget extends StatefulWidget {
 
 class _PagerState extends State<PagerWidget> {
   int index = 0;
-  List<String> titles = ["ICONS", "TEMPLATES", "WALLPAPERS"];
+  List<String> titles = ["ICONS" /*, "TEMPLATES", "WALLPAPERS"*/ ];
   List<Widget> previews = [
     IconListPreview(),
-    TemplatePreview(),
-    IconListPreview()
+    // TemplatePreview(),
+    // IconListPreview()
   ];
 
   @override
