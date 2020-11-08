@@ -17,7 +17,6 @@ class PagerScreen extends StatefulWidget {
 }
 
 class _PagerScreenState extends State<PagerScreen> {
-
   Future<void> checkStoragePermission() async {
     print("Checking storage!");
     var status = await Permission.storage.status;
@@ -44,6 +43,14 @@ class _PagerScreenState extends State<PagerScreen> {
     checkStoragePermission();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      builder: (context, child) {
+        return MediaQuery(
+          child: child,
+          data: MediaQuery.of(context).copyWith(
+            textScaleFactor: 1.0,
+          ),
+        );
+      },
       theme: ThemeConstants.appTheme,
       home: Scaffold(
         body: PagerWidget(),
@@ -152,8 +159,8 @@ class IconListPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => IconScreen(imagePaths)));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => IconScreen(imagePaths)));
       },
       child: Stack(
         alignment: Alignment.center,
