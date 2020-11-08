@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ThemeConstants {
-  static final String primaryFontFamily = "Helvetica";
+  static final String primaryFontFamily = "Gelion";
 
   static final Color textPrimaryColor = Colors.white;
   static final Color iconBackground = Colors.black;
