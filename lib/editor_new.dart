@@ -326,7 +326,9 @@ class LinearColorEditor extends StatelessWidget {
                             content: SingleChildScrollView(
                               child: ColorPicker(
                                 pickerColor: pickerColor,
-                                onColorChanged: (value) {},
+                                onColorChanged: (value) {
+                                  onForegroundChanged(value);
+                                },
                                 showLabel: true,
                                 pickerAreaHeightPercent: 0.8,
                               ),
@@ -335,7 +337,6 @@ class LinearColorEditor extends StatelessWidget {
                               FlatButton(
                                 child: const Text('Done'),
                                 onPressed: () {
-                                  Navigator.of(context).pop();
                                 },
                               ),
                             ],
