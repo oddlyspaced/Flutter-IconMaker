@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:projectminimal/iconlist.dart';
 import 'package:projectminimal/text_anim.dart';
 import 'package:projectminimal/theme.dart';
@@ -16,9 +17,31 @@ class PagerScreen extends StatefulWidget {
 }
 
 class _PagerScreenState extends State<PagerScreen> {
+
+  Future<void> checkStoragePermission() async {
+    print("Checking storage!");
+    var status = await Permission.storage.status;
+    if (status.isUndetermined) {
+      // We didn't ask for permission yet.
+      print("Storage undetermined");
+
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.storage,
+      ].request();
+      print(statuses[Permission.storage]);
+    }
+
+    // You can can also directly ask the permission about its status.
+    if (await Permission.storage.isRestricted) {
+      // The OS restricts access, for example because of parental controls.
+      print("Storage Restricted");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     imagePaths = widget.imagePaths;
+    checkStoragePermission();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeConstants.appTheme,
