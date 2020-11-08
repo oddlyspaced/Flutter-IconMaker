@@ -1,6 +1,11 @@
+import 'dart:typed_data';
+
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:projectminimal/editor.dart';
 import 'package:projectminimal/theme.dart';
 
@@ -14,15 +19,23 @@ Color foregroundColor = Colors.white;
 Color pickerColor = Color(0xff443a49);
 Color currentColor = Color(0xff443a49);
 
-class EditorEditorScreen extends StatelessWidget {
+class EditorEditorScreen extends StatefulWidget {
   EditorEditorScreen(this.icon);
 
   final String icon;
 
   @override
+  _EditorEditorScreenState createState() => _EditorEditorScreenState();
+}
+
+class _EditorEditorScreenState extends State<EditorEditorScreen> {
+  @override
   Widget build(BuildContext context) {
-    iconAsset = icon;
-    return EditorWidget();
+    iconAsset = widget.icon;
+    return MaterialApp(
+      theme: ThemeConstants.appTheme,
+      home: EditorWidget(),
+    );
   }
 }
 
@@ -32,9 +45,51 @@ class EditorWidget extends StatefulWidget {
 }
 
 class _EditorWidgetState extends State<EditorWidget> {
+  final parentKey = new GlobalKey<ScaffoldState>();
+  GlobalKey repaintKey = new GlobalKey();
+
+  Future capturePng() async {
+    try {
+      print('inside');
+      RenderRepaintBoundary boundary =
+          repaintKey.currentContext.findRenderObject();
+      ui.Image image = await boundary.toImage(pixelRatio: 10.0);
+      ByteData byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      var pngBytes = byteData.buffer.asUint8List();
+      Image.memory(pngBytes);
+      final result = ImageGallerySaver.saveImage(
+        Uint8List.fromList(pngBytes),
+        quality: 100,
+        name: "test",
+      );
+      print(result);
+      parentKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text(
+            "Saved to Gallery successfully!",
+            style: ThemeConstants.snackbar,
+          ),
+        ),
+      );
+    } catch (e) {
+      parentKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text(
+            "Error in Saving to Gallery!",
+            style: ThemeConstants.snackbar,
+          ),
+        ),
+      );
+      print("ERROR");
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: parentKey,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -49,35 +104,38 @@ class _EditorWidgetState extends State<EditorWidget> {
                 flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
-                  child: AspectRatio(
-                    aspectRatio: 1,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.center,
-                              colors: [startingColor, endingColor],
-                            ),
-                            //color: backgroundColor,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(24),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: new EdgeInsets.all(100 - size),
-                          child: Container(
-                            height: double.infinity,
-                            width: double.infinity,
-                            child: SvgPicture.asset(
-                              iconAsset,
-                              color: foregroundColor,
+                  child: RepaintBoundary(
+                    key: repaintKey,
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.center,
+                                colors: [startingColor, endingColor],
+                              ),
+                              //color: backgroundColor,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(24),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: new EdgeInsets.all(100 - size),
+                            child: Container(
+                              height: double.infinity,
+                              width: double.infinity,
+                              child: SvgPicture.asset(
+                                iconAsset,
+                                color: foregroundColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -136,7 +194,18 @@ class _EditorWidgetState extends State<EditorWidget> {
                     ),
                     Separator(),
                     Spacer(),
-                    SaveButton(),
+                    InkWell(
+                      onTap: () {
+                        parentKey.currentState.showSnackBar(SnackBar(
+                          content: Text(
+                            "Saving...",
+                            style: ThemeConstants.snackbar,
+                          ),
+                        ));
+                        capturePng();
+                      },
+                      child: SaveButton(),
+                    ),
                   ],
                 ),
               ),
@@ -166,6 +235,7 @@ class Separator extends StatelessWidget {
 
 class LinearColorEditor extends StatelessWidget {
   LinearColorEditor({this.onBackgroundChanged, this.onForegroundChanged});
+
   final Function onBackgroundChanged;
   final Function onForegroundChanged;
 
@@ -211,8 +281,7 @@ class LinearColorEditor extends StatelessWidget {
                             actions: <Widget>[
                               FlatButton(
                                 child: const Text('Done'),
-                                onPressed: () {
-                                },
+                                onPressed: () {},
                               ),
                             ],
                           ),
@@ -256,8 +325,7 @@ class LinearColorEditor extends StatelessWidget {
                             content: SingleChildScrollView(
                               child: ColorPicker(
                                 pickerColor: pickerColor,
-                                onColorChanged: (value) {
-                                },
+                                onColorChanged: (value) {},
                                 showLabel: true,
                                 pickerAreaHeightPercent: 0.8,
                               ),
@@ -296,6 +364,7 @@ class LinearColorEditor extends StatelessWidget {
 
 class GradientColorEditor extends StatelessWidget {
   GradientColorEditor({this.onStartColorChanged, this.onEndColorChanged});
+
   final Function onStartColorChanged;
   final Function onEndColorChanged;
 
@@ -341,8 +410,7 @@ class GradientColorEditor extends StatelessWidget {
                             actions: <Widget>[
                               FlatButton(
                                 child: const Text('Done'),
-                                onPressed: () {
-                                },
+                                onPressed: () {},
                               ),
                             ],
                           ),
@@ -427,6 +495,7 @@ class GradientColorEditor extends StatelessWidget {
 
 class SizeEditor extends StatelessWidget {
   SizeEditor({this.onSizeChanged});
+
   final Function onSizeChanged;
 
   @override
@@ -487,4 +556,3 @@ class SaveButton extends StatelessWidget {
     );
   }
 }
-
