@@ -33,10 +33,7 @@ class _EditorEditorScreenState extends State<EditorEditorScreen> {
   @override
   Widget build(BuildContext context) {
     iconAsset = widget.icon;
-    return MaterialApp(
-      theme: ThemeConstants.appTheme,
-      home: EditorWidget(),
-    );
+    return EditorWidget();
   }
 }
 
@@ -282,7 +279,9 @@ class LinearColorEditor extends StatelessWidget {
                             actions: <Widget>[
                               FlatButton(
                                 child: const Text('Done'),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true).pop();
+                                },
                               ),
                             ],
                           ),
@@ -337,6 +336,7 @@ class LinearColorEditor extends StatelessWidget {
                               FlatButton(
                                 child: const Text('Done'),
                                 onPressed: () {
+                                  Navigator.of(context, rootNavigator: true).pop();
                                 },
                               ),
                             ],
@@ -412,7 +412,9 @@ class GradientColorEditor extends StatelessWidget {
                             actions: <Widget>[
                               FlatButton(
                                 child: const Text('Done'),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true).pop();
+                                },
                               ),
                             ],
                           ),
@@ -467,7 +469,7 @@ class GradientColorEditor extends StatelessWidget {
                               FlatButton(
                                 child: const Text('Done'),
                                 onPressed: () {
-                                  Navigator.of(context).pop();
+                                  Navigator.of(context, rootNavigator: true).pop();
                                 },
                               ),
                             ],
