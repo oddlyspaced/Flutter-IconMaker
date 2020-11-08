@@ -57,7 +57,7 @@ class _EditorWidgetState extends State<EditorWidget> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.center,
-                              colors: [Colors.red, Colors.yellow],
+                              colors: [backgroundColor, backgroundColor],
                             ),
                             //color: backgroundColor,
                             borderRadius: BorderRadius.all(
@@ -85,9 +85,23 @@ class _EditorWidgetState extends State<EditorWidget> {
                 flex: 3,
                 child: Column(
                   children: [
-                    ColorEditor(),
+                    ColorEditor(
+                      onBackgroundChanged: (color) {
+                        backgroundColor = color;
+                        setState(() {});
+                      },
+                      onForegroundChanged: (color) {
+                        foregroundColor = color;
+                        setState(() {});
+                      },
+                    ),
                     Separator(),
-                    SizeEditor(),
+                    SizeEditor(
+                      onSizeChanged: (value) {
+                        size = value;
+                        setState(() {});
+                      },
+                    ),
                     Separator(),
                     Spacer(),
                     SaveButton(),
@@ -119,6 +133,9 @@ class Separator extends StatelessWidget {
 }
 
 class ColorEditor extends StatefulWidget {
+  ColorEditor({this.onBackgroundChanged, this.onForegroundChanged});
+  final Function onBackgroundChanged;
+  final Function onForegroundChanged;
   @override
   _ColorEditorState createState() => _ColorEditorState();
 }
@@ -155,7 +172,7 @@ class _ColorEditorState extends State<ColorEditor> {
                                 pickerColor: pickerColor,
                                 onColorChanged: (value) {
                                   setState(() {
-                                    backgroundColor = value;
+                                    widget.onBackgroundChanged(value);
                                   });
                                 },
                                 showLabel: true,
@@ -213,7 +230,7 @@ class _ColorEditorState extends State<ColorEditor> {
                                 pickerColor: pickerColor,
                                 onColorChanged: (value) {
                                   setState(() {
-                                    foregroundColor = value;
+                                    widget.onForegroundChanged(value);
                                   });
                                 },
                                 showLabel: true,
@@ -224,7 +241,6 @@ class _ColorEditorState extends State<ColorEditor> {
                               FlatButton(
                                 child: const Text('Done'),
                                 onPressed: () {
-                                  setState(() => currentColor = pickerColor);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -254,6 +270,8 @@ class _ColorEditorState extends State<ColorEditor> {
 }
 
 class SizeEditor extends StatefulWidget {
+  SizeEditor({this.onSizeChanged});
+  final Function onSizeChanged;
   @override
   _SizeEditorState createState() => _SizeEditorState();
 }
@@ -275,9 +293,7 @@ class _SizeEditorState extends State<SizeEditor> {
           max: 100,
           divisions: 50,
           onChanged: (value) {
-            setState(() {
-              size = value;
-            });
+            widget.onSizeChanged(value);
           },
         ),
       ],
