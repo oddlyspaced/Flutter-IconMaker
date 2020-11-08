@@ -85,22 +85,34 @@ class _EditorWidgetState extends State<EditorWidget> {
                 flex: 3,
                 child: Column(
                   children: [
-                    ColorEditor(
-                      onBackgroundChanged: (color) {
-                        backgroundColor = color;
-                        setState(() {});
-                      },
-                      onForegroundChanged: (color) {
-                        foregroundColor = color;
-                        setState(() {});
-                      },
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 8,
+                        left: 24,
+                        right: 24,
+                      ),
+                      child: ColorEditor(
+                        onBackgroundChanged: (color) {
+                          backgroundColor = color;
+                          setState(() {});
+                        },
+                        onForegroundChanged: (color) {
+                          foregroundColor = color;
+                          setState(() {});
+                        },
+                      ),
                     ),
                     Separator(),
-                    SizeEditor(
-                      onSizeChanged: (value) {
-                        size = value;
-                        setState(() {});
-                      },
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 8,
+                      ),
+                      child: SizeEditor(
+                        onSizeChanged: (value) {
+                          size = value;
+                          setState(() {});
+                        },
+                      ),
                     ),
                     Separator(),
                     Spacer(),
@@ -134,8 +146,10 @@ class Separator extends StatelessWidget {
 
 class ColorEditor extends StatefulWidget {
   ColorEditor({this.onBackgroundChanged, this.onForegroundChanged});
+
   final Function onBackgroundChanged;
   final Function onForegroundChanged;
+
   @override
   _ColorEditorState createState() => _ColorEditorState();
 }
@@ -145,9 +159,12 @@ class _ColorEditorState extends State<ColorEditor> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          "Color",
-          style: ThemeConstants.title,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Color",
+            style: ThemeConstants.title,
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -271,7 +288,9 @@ class _ColorEditorState extends State<ColorEditor> {
 
 class SizeEditor extends StatefulWidget {
   SizeEditor({this.onSizeChanged});
+
   final Function onSizeChanged;
+
   @override
   _SizeEditorState createState() => _SizeEditorState();
 }
