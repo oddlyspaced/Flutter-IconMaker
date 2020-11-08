@@ -91,7 +91,7 @@ class _EditorWidgetState extends State<EditorWidget> {
                         left: 24,
                         right: 24,
                       ),
-                      child: ColorEditor(
+                      child: LinearColorEditor(
                         onBackgroundChanged: (color) {
                           backgroundColor = color;
                           setState(() {});
@@ -144,17 +144,11 @@ class Separator extends StatelessWidget {
   }
 }
 
-class ColorEditor extends StatefulWidget {
-  ColorEditor({this.onBackgroundChanged, this.onForegroundChanged});
-
+class LinearColorEditor extends StatelessWidget {
+  LinearColorEditor({this.onBackgroundChanged, this.onForegroundChanged});
   final Function onBackgroundChanged;
   final Function onForegroundChanged;
 
-  @override
-  _ColorEditorState createState() => _ColorEditorState();
-}
-
-class _ColorEditorState extends State<ColorEditor> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -188,9 +182,7 @@ class _ColorEditorState extends State<ColorEditor> {
                               child: ColorPicker(
                                 pickerColor: pickerColor,
                                 onColorChanged: (value) {
-                                  setState(() {
-                                    widget.onBackgroundChanged(value);
-                                  });
+                                  onBackgroundChanged(value);
                                 },
                                 showLabel: true,
                                 pickerAreaHeightPercent: 0.8,
@@ -200,7 +192,6 @@ class _ColorEditorState extends State<ColorEditor> {
                               FlatButton(
                                 child: const Text('Done'),
                                 onPressed: () {
-                                  setState(() => currentColor = pickerColor);
                                 },
                               ),
                             ],
@@ -246,9 +237,6 @@ class _ColorEditorState extends State<ColorEditor> {
                               child: ColorPicker(
                                 pickerColor: pickerColor,
                                 onColorChanged: (value) {
-                                  setState(() {
-                                    widget.onForegroundChanged(value);
-                                  });
                                 },
                                 showLabel: true,
                                 pickerAreaHeightPercent: 0.8,
@@ -286,16 +274,10 @@ class _ColorEditorState extends State<ColorEditor> {
   }
 }
 
-class SizeEditor extends StatefulWidget {
+class SizeEditor extends StatelessWidget {
   SizeEditor({this.onSizeChanged});
-
   final Function onSizeChanged;
 
-  @override
-  _SizeEditorState createState() => _SizeEditorState();
-}
-
-class _SizeEditorState extends State<SizeEditor> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -312,7 +294,7 @@ class _SizeEditorState extends State<SizeEditor> {
           max: 100,
           divisions: 50,
           onChanged: (value) {
-            widget.onSizeChanged(value);
+            onSizeChanged(value);
           },
         ),
       ],
@@ -354,3 +336,4 @@ class SaveButton extends StatelessWidget {
     );
   }
 }
+
