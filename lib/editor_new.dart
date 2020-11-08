@@ -7,7 +7,8 @@ import 'package:projectminimal/theme.dart';
 String iconAsset;
 
 // create some values
-Color backgroundColor = Colors.blue;
+Color startingColor = Colors.black;
+Color endingColor = Colors.black;
 Color foregroundColor = Colors.white;
 
 Color pickerColor = Color(0xff443a49);
@@ -57,7 +58,7 @@ class _EditorWidgetState extends State<EditorWidget> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.center,
-                              colors: [backgroundColor, backgroundColor],
+                              colors: [startingColor, endingColor],
                             ),
                             //color: backgroundColor,
                             borderRadius: BorderRadius.all(
@@ -93,11 +94,30 @@ class _EditorWidgetState extends State<EditorWidget> {
                       ),
                       child: LinearColorEditor(
                         onBackgroundChanged: (color) {
-                          backgroundColor = color;
+                          startingColor = color;
+                          endingColor = color;
                           setState(() {});
                         },
                         onForegroundChanged: (color) {
                           foregroundColor = color;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                    Separator(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 24,
+                        right: 24,
+                        bottom: 8,
+                      ),
+                      child: GradientColorEditor(
+                        onStartColorChanged: (color) {
+                          startingColor = color;
+                          setState(() {});
+                        },
+                        onEndColorChanged: (color) {
+                          endingColor = color;
                           setState(() {});
                         },
                       ),
@@ -204,7 +224,7 @@ class LinearColorEditor extends StatelessWidget {
                           borderRadius: BorderRadius.all(
                             Radius.circular(12),
                           ),
-                          color: backgroundColor,
+                          color: startingColor,
                         ),
                       ),
                     ),
@@ -260,6 +280,137 @@ class LinearColorEditor extends StatelessWidget {
                             Radius.circular(12),
                           ),
                           color: foregroundColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class GradientColorEditor extends StatelessWidget {
+  GradientColorEditor({this.onStartColorChanged, this.onEndColorChanged});
+  final Function onStartColorChanged;
+  final Function onEndColorChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Gradient Color",
+            style: ThemeConstants.title,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Row(
+                children: [
+                  Text(
+                    "Starting : ",
+                    style: ThemeConstants.subheading,
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          child: AlertDialog(
+                            title: const Text('Select Starting color'),
+                            content: SingleChildScrollView(
+                              child: ColorPicker(
+                                pickerColor: pickerColor,
+                                onColorChanged: (value) {
+                                  onStartColorChanged(value);
+                                },
+                                showLabel: true,
+                                pickerAreaHeightPercent: 0.8,
+                              ),
+                            ),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: const Text('Done'),
+                                onPressed: () {
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 20,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                          color: startingColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 8),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 8),
+            ),
+            Expanded(
+              flex: 1,
+              child: Row(
+                children: [
+                  Text(
+                    "Ending : ",
+                    style: ThemeConstants.subheading,
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          child: AlertDialog(
+                            title: const Text('Select Ending color'),
+                            content: SingleChildScrollView(
+                              child: ColorPicker(
+                                pickerColor: pickerColor,
+                                onColorChanged: (value) {
+                                  onEndColorChanged(value);
+                                },
+                                showLabel: true,
+                                pickerAreaHeightPercent: 0.8,
+                              ),
+                            ),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: const Text('Done'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 20,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                          color: endingColor,
                         ),
                       ),
                     ),
