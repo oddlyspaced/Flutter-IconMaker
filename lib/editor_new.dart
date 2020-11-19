@@ -303,7 +303,7 @@ class LinearColorEditor extends StatelessWidget {
                                 onColorChanged: (value) {
                                   onBackgroundChanged(value);
                                 },
-                                showLabel: true,
+                                showLabel: false,
                                 pickerAreaHeightPercent: 0.8,
                               ),
                             ),
@@ -360,7 +360,7 @@ class LinearColorEditor extends StatelessWidget {
                                 onColorChanged: (value) {
                                   onForegroundChanged(value);
                                 },
-                                showLabel: true,
+                                showLabel: false,
                                 pickerAreaHeightPercent: 0.8,
                               ),
                             ),
@@ -438,7 +438,7 @@ class GradientColorEditor extends StatelessWidget {
                                 onColorChanged: (value) {
                                   onStartColorChanged(value);
                                 },
-                                showLabel: true,
+                                showLabel: false,
                                 pickerAreaHeightPercent: 0.8,
                               ),
                             ),
@@ -499,7 +499,7 @@ class GradientColorEditor extends StatelessWidget {
                                 onColorChanged: (value) {
                                   onEndColorChanged(value);
                                 },
-                                showLabel: true,
+                                showLabel: false,
                                 pickerAreaHeightPercent: 0.8,
                               ),
                             ),
