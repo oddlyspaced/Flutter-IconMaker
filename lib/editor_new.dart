@@ -280,7 +280,8 @@ class LinearColorEditor extends StatelessWidget {
                               FlatButton(
                                 child: const Text('Done'),
                                 onPressed: () {
-                                  Navigator.of(context, rootNavigator: true).pop();
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
                                 },
                               ),
                             ],
@@ -336,7 +337,8 @@ class LinearColorEditor extends StatelessWidget {
                               FlatButton(
                                 child: const Text('Done'),
                                 onPressed: () {
-                                  Navigator.of(context, rootNavigator: true).pop();
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
                                 },
                               ),
                             ],
@@ -413,7 +415,8 @@ class GradientColorEditor extends StatelessWidget {
                               FlatButton(
                                 child: const Text('Done'),
                                 onPressed: () {
-                                  Navigator.of(context, rootNavigator: true).pop();
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
                                 },
                               ),
                             ],
@@ -454,9 +457,13 @@ class GradientColorEditor extends StatelessWidget {
                         showDialog(
                           context: context,
                           child: AlertDialog(
+                            backgroundColor: Colors.black,
                             title: const Text('Select Ending color'),
                             content: SingleChildScrollView(
                               child: ColorPicker(
+                                labelTextStyle: TextStyle(
+                                  color: Colors.white,
+                                ),
                                 pickerColor: pickerColor,
                                 onColorChanged: (value) {
                                   onEndColorChanged(value);
@@ -467,9 +474,15 @@ class GradientColorEditor extends StatelessWidget {
                             ),
                             actions: <Widget>[
                               FlatButton(
-                                child: const Text('Done'),
+                                child: const Text(
+                                  'Done',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
                                 onPressed: () {
-                                  Navigator.of(context, rootNavigator: true).pop();
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
                                 },
                               ),
                             ],
