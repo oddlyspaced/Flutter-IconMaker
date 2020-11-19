@@ -23,18 +23,7 @@ Color currentColor = Color(0xff443a49);
 
 double size = 0;
 
-int direction = 0;
-
-List<Alignment> directions = [
-  Alignment.topLeft,
-  Alignment.topCenter,
-  Alignment.topRight,
-  Alignment.bottomLeft,
-  Alignment.bottomCenter,
-  Alignment.bottomRight,
-  Alignment.centerLeft,
-  Alignment.center,
-];
+double direction = 0;
 
 class EditorEditorScreen extends StatefulWidget {
   EditorEditorScreen(this.icon);
@@ -128,7 +117,9 @@ class _EditorWidgetState extends State<EditorWidget> {
                           Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                begin: directions[direction],
+                                begin: Alignment(0 + direction, -1 + direction),
+                                end: Alignment(0 - direction, 1 - direction),
+                                stops: [0.25, 0.75],
                                 colors: [startingColor, endingColor],
                               ),
                               //color: backgroundColor,
@@ -213,8 +204,7 @@ class _EditorWidgetState extends State<EditorWidget> {
                       ),
                       child: AlignmentEditor(
                         onAlignmentChanged: (double value) {
-                          print(value);
-                          direction = value.toInt();
+                          direction = value;
                           setState(() {});
                         },
                       ),
@@ -635,9 +625,10 @@ class AlignmentEditor extends StatelessWidget {
           inactiveColor: Colors.white12,
           value: direction.toDouble(),
           min: 0.0,
-          max: directions.length.toDouble() - 1,
-          divisions: directions.length - 1,
+          max: 1.0,
+          divisions: 100,
           onChanged: (value) {
+            print(value);
             onAlignmentChanged(value);
           },
         ),
