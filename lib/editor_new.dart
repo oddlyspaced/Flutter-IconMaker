@@ -131,7 +131,6 @@ class _EditorWidgetState extends State<EditorWidget> {
                               gradient: LinearGradient(
                                 begin: directions[direction],
                                 colors: [startingColor, endingColor],
-
                               ),
                               //color: backgroundColor,
                               borderRadius: BorderRadius.all(
@@ -298,15 +297,10 @@ class LinearColorEditor extends StatelessWidget {
                           child: AlertDialog(
                             title: const Text('Select Background color'),
                             content: SingleChildScrollView(
-                              child: ColorPicker(
-                                pickerColor: pickerColor,
-                                onColorChanged: (value) {
-                                  onBackgroundChanged(value);
-                                },
-                                showLabel: false,
-                                pickerAreaHeightPercent: 0.8,
-                              ),
-                            ),
+                                child: ColorPickerBuilder(
+                              pickerColor: pickerColor,
+                              onColorChanged: onBackgroundChanged,
+                            )),
                             actions: <Widget>[
                               FlatButton(
                                 child: const Text('Done'),
@@ -355,13 +349,9 @@ class LinearColorEditor extends StatelessWidget {
                           child: AlertDialog(
                             title: const Text('Select Foreground color'),
                             content: SingleChildScrollView(
-                              child: ColorPicker(
+                              child: ColorPickerBuilder(
                                 pickerColor: pickerColor,
-                                onColorChanged: (value) {
-                                  onForegroundChanged(value);
-                                },
-                                showLabel: false,
-                                pickerAreaHeightPercent: 0.8,
+                                onColorChanged: onForegroundChanged,
                               ),
                             ),
                             actions: <Widget>[
@@ -433,13 +423,9 @@ class GradientColorEditor extends StatelessWidget {
                           child: AlertDialog(
                             title: const Text('Select Starting color'),
                             content: SingleChildScrollView(
-                              child: ColorPicker(
+                              child: ColorPickerBuilder(
                                 pickerColor: pickerColor,
-                                onColorChanged: (value) {
-                                  onStartColorChanged(value);
-                                },
-                                showLabel: false,
-                                pickerAreaHeightPercent: 0.8,
+                                onColorChanged: onStartColorChanged,
                               ),
                             ),
                             actions: <Widget>[
@@ -491,16 +477,9 @@ class GradientColorEditor extends StatelessWidget {
                             backgroundColor: Colors.black,
                             title: const Text('Select Ending color'),
                             content: SingleChildScrollView(
-                              child: ColorPicker(
-                                labelTextStyle: TextStyle(
-                                  color: Colors.white,
-                                ),
+                              child: ColorPickerBuilder(
                                 pickerColor: pickerColor,
-                                onColorChanged: (value) {
-                                  onEndColorChanged(value);
-                                },
-                                showLabel: false,
-                                pickerAreaHeightPercent: 0.8,
+                                onColorChanged: onEndColorChanged,
                               ),
                             ),
                             actions: <Widget>[
@@ -537,6 +516,25 @@ class GradientColorEditor extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+class ColorPickerBuilder extends StatelessWidget {
+  ColorPickerBuilder({this.pickerColor, this.onColorChanged});
+
+  final Color pickerColor;
+  final Function onColorChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return ColorPicker(
+      pickerColor: pickerColor,
+      onColorChanged: (value) {
+        onColorChanged(value);
+      },
+      showLabel: false,
+      pickerAreaHeightPercent: 0.8,
     );
   }
 }
@@ -598,7 +596,6 @@ class AlignmentEditor extends StatelessWidget {
     );
   }
 }
-
 
 class SaveButton extends StatelessWidget {
   @override
