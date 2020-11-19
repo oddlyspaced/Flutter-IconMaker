@@ -11,8 +11,11 @@ import 'package:projectminimal/theme.dart';
 String iconAsset;
 
 // create some values
-Color startingColor = Color(0xFFfbaf17);
-Color endingColor = Color(0xFFf27450);
+// Color startingColor = Color(0xFFfbaf17);
+// Color endingColor = Color(0xFFf27450);
+
+Color startingColor = Colors.black;
+Color endingColor = Colors.black;
 Color foregroundColor = Colors.white;
 
 Color pickerColor = Color(0xff443a49);
