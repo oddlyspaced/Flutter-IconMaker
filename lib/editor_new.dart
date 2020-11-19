@@ -34,7 +34,6 @@ List<Alignment> directions = [
   Alignment.bottomRight,
   Alignment.centerLeft,
   Alignment.center,
-  Alignment.centerRight,
 ];
 
 class EditorEditorScreen extends StatefulWidget {
@@ -157,7 +156,7 @@ class _EditorWidgetState extends State<EditorWidget> {
               ),
               Expanded(
                 flex: 3,
-                child: Column(
+                child: ListView(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
@@ -221,21 +220,20 @@ class _EditorWidgetState extends State<EditorWidget> {
                       ),
                     ),
                     Separator(),
-                    Spacer(),
-                    InkWell(
-                      onTap: () {
-                        parentKey.currentState.showSnackBar(SnackBar(
-                          content: Text(
-                            "Saving...",
-                            style: ThemeConstants.snackbar,
-                          ),
-                        ));
-                        capturePng();
-                      },
-                      child: SaveButton(),
-                    ),
                   ],
                 ),
+              ),
+              InkWell(
+                onTap: () {
+                  parentKey.currentState.showSnackBar(SnackBar(
+                    content: Text(
+                      "Saving...",
+                      style: ThemeConstants.snackbar,
+                    ),
+                  ));
+                  capturePng();
+                },
+                child: SaveButton(),
               ),
             ],
           ),
