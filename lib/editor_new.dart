@@ -484,7 +484,6 @@ class GradientColorEditor extends StatelessWidget {
                                 child: const Text(
                                   'Done',
                                   style: TextStyle(
-                                    color: Colors.white,
                                   ),
                                 ),
                                 onPressed: () {
