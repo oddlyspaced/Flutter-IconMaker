@@ -474,7 +474,6 @@ class GradientColorEditor extends StatelessWidget {
                         showDialog(
                           context: context,
                           child: AlertDialog(
-                            backgroundColor: Colors.black,
                             title: const Text('Select Ending color'),
                             content: SingleChildScrollView(
                               child: ColorPickerBuilder(
