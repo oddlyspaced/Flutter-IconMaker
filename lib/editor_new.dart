@@ -11,14 +11,28 @@ import 'package:projectminimal/theme.dart';
 String iconAsset;
 
 // create some values
-Color startingColor = Colors.black;
-Color endingColor = Colors.black;
+Color startingColor = Color(0xFFfbaf17);
+Color endingColor = Color(0xFFf27450);
 Color foregroundColor = Colors.white;
 
 Color pickerColor = Color(0xff443a49);
 Color currentColor = Color(0xff443a49);
 
 double size = 0;
+
+int direction = 0;
+
+List<Alignment> directions = [
+  Alignment.topLeft,
+  Alignment.topCenter,
+  Alignment.topRight,
+  Alignment.bottomLeft,
+  Alignment.bottomCenter,
+  Alignment.bottomRight,
+  Alignment.centerLeft,
+  Alignment.center,
+  Alignment.centerRight,
+];
 
 class EditorEditorScreen extends StatefulWidget {
   EditorEditorScreen(this.icon);
@@ -112,8 +126,9 @@ class _EditorWidgetState extends State<EditorWidget> {
                           Container(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                begin: Alignment.center,
+                                begin: directions[direction],
                                 colors: [startingColor, endingColor],
+
                               ),
                               //color: backgroundColor,
                               borderRadius: BorderRadius.all(
@@ -186,6 +201,19 @@ class _EditorWidgetState extends State<EditorWidget> {
                       child: SizeEditor(
                         onSizeChanged: (value) {
                           size = value;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                    Separator(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 8,
+                      ),
+                      child: AlignmentEditor(
+                        onAlignmentChanged: (double value) {
+                          print(value);
+                          direction = value.toInt();
                           setState(() {});
                         },
                       ),
@@ -538,6 +566,36 @@ class SizeEditor extends StatelessWidget {
     );
   }
 }
+
+class AlignmentEditor extends StatelessWidget {
+  AlignmentEditor({this.onAlignmentChanged});
+
+  final Function onAlignmentChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          "Alignment",
+          style: ThemeConstants.title,
+        ),
+        Slider(
+          activeColor: Colors.white,
+          inactiveColor: Colors.white12,
+          value: direction.toDouble(),
+          min: 0.0,
+          max: directions.length.toDouble() - 1,
+          divisions: directions.length - 1,
+          onChanged: (value) {
+            onAlignmentChanged(value);
+          },
+        ),
+      ],
+    );
+  }
+}
+
 
 class SaveButton extends StatelessWidget {
   @override
