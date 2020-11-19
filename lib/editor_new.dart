@@ -483,8 +483,7 @@ class GradientColorEditor extends StatelessWidget {
                               FlatButton(
                                 child: const Text(
                                   'Done',
-                                  style: TextStyle(
-                                  ),
+                                  style: TextStyle(),
                                 ),
                                 onPressed: () {
                                   Navigator.of(context, rootNavigator: true)
@@ -516,21 +515,75 @@ class GradientColorEditor extends StatelessWidget {
   }
 }
 
-class ColorPickerBuilder extends StatelessWidget {
+class ColorPickerBuilder extends StatefulWidget {
   ColorPickerBuilder({this.pickerColor, this.onColorChanged});
 
-  final Color pickerColor;
+  Color pickerColor;
   final Function onColorChanged;
 
   @override
+  _ColorPickerBuilderState createState() => _ColorPickerBuilderState();
+}
+
+class _ColorPickerBuilderState extends State<ColorPickerBuilder> {
+  
+  String colorToHex(Color color) {
+    String r = color.red.toRadixString(16);
+    if (r.length == 1) {
+      r = r + r;
+    }
+    String g = color.green.toRadixString(16);
+    if (g.length == 1) {
+      g = g + g;
+    }
+    String b = color.blue.toRadixString(16);
+    if (b.length == 1) {
+      b = b + b;
+    }
+    return r + g + b;
+  }
+  
+  @override
   Widget build(BuildContext context) {
-    return ColorPicker(
-      pickerColor: pickerColor,
-      onColorChanged: (value) {
-        onColorChanged(value);
-      },
-      showLabel: false,
-      pickerAreaHeightPercent: 0.8,
+    return Column(
+      children: [
+        ColorPicker(
+          pickerColor: widget.pickerColor,
+          onColorChanged: (Color value) {
+            print(colorToHex(value));
+            widget.pickerColor = value;
+            widget.onColorChanged(value);
+            setState(() {
+            });
+          },
+          showLabel: false,
+          pickerAreaHeightPercent: 0.8,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 12,
+            right: 12,
+          ),
+          child: TextField(
+            controller: TextEditingController(
+              text: colorToHex(widget.pickerColor),
+            ),
+            onChanged: (text) {
+              if (text.startsWith("#")) {
+                text = text.substring(1);
+              }
+              if (text.length < 6) {
+                return;
+              }
+              try {
+                widget.pickerColor = Color(int.parse("0xFF" + text));
+                widget.onColorChanged(widget.pickerColor);
+                setState(() {});
+              } catch (e) {}
+            },
+          ),
+        ),
+      ],
     );
   }
 }
