@@ -62,6 +62,7 @@ class PreviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    iconNames.shuffle();
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
