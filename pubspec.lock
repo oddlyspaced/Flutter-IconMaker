@@ -115,7 +115,7 @@ packages:
       name: image_gallery_saver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.2"
+    version: "1.6.6"
   image_picker:
     dependency: "direct main"
     description:
