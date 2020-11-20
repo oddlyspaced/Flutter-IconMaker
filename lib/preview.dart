@@ -137,7 +137,7 @@ class BottomRowWidget extends StatelessWidget {
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.grey,
+            color: Colors.white.withAlpha(64),
             borderRadius: BorderRadius.all(
               Radius.circular(
                 32,
