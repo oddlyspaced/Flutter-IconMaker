@@ -1,20 +1,29 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:projectminimal/theme.dart';
 
 String iconColor;
 String boxColor;
+String textColor;
+String imagePath;
 
 class PreviewScreen extends StatelessWidget {
-  PreviewScreen(this._iconColor, this._boxColor);
+  PreviewScreen(
+      this._iconColor, this._boxColor, this._textColor, this._imagePath);
 
   final String _iconColor;
   final String _boxColor;
+  final String _textColor;
+  final String _imagePath;
 
   @override
   Widget build(BuildContext context) {
     iconColor = _iconColor;
     boxColor = _boxColor;
+    textColor = _textColor;
+    imagePath = _imagePath;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -80,7 +89,9 @@ class PreviewWidget extends StatelessWidget {
           Radius.circular(24),
         ),
         image: DecorationImage(
-          image: AssetImage("assets/wall.jpeg"),
+          image: (imagePath == null || imagePath.length == 0)
+              ? AssetImage("assets/wall.jpeg")
+              : FileImage(File(imagePath)),
           fit: BoxFit.cover,
         ),
       ),
@@ -144,6 +155,9 @@ class IconWidget extends StatelessWidget {
               title,
               style: ThemeConstants.subheading.copyWith(
                 fontSize: 14,
+                color: Color(
+                  int.parse("0xFF" + textColor),
+                ),
               ),
             ),
           ),
@@ -154,7 +168,12 @@ class IconWidget extends StatelessWidget {
 }
 
 class BottomRowWidget extends StatelessWidget {
-  final List<String> bottomIcons = ["new_phone", "new_messaging", "new_safari", "new_camera"];
+  final List<String> bottomIcons = [
+    "new_phone",
+    "new_messaging",
+    "new_safari",
+    "new_camera"
+  ];
 
   @override
   Widget build(BuildContext context) {
