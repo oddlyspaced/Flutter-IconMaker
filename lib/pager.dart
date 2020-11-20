@@ -67,10 +67,13 @@ class PagerWidget extends StatefulWidget {
 
 class _PagerState extends State<PagerWidget> {
   int index = 0;
-  List<String> titles = ["ICONS", "PREVIEW", /*, "TEMPLATES", "WALLPAPERS"*/ ];
+  List<String> titles = [
+    "ICONS",
+    "PREVIEW", /*, "TEMPLATES", "WALLPAPERS"*/
+  ];
   List<Widget> previews = [
     IconListPreview(),
-    SamplePreview(),
+    PreviewItem(),
     // TemplatePreview(),
     // IconListPreview()
   ];
@@ -346,21 +349,60 @@ class TemplateItem {
   final Color backgroundColor, foregroundColor;
 }
 
-class SamplePreview extends StatelessWidget {
+class PreviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) {
-            return PreviewScreen();
-          }
-        ));
-      },
-      child: Container(
-        color: Colors.red,
+    String iconColor = "FFFFFF";
+    String boxColor = "000000";
+
+    return Container(
+      color: Colors.grey,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text("Icon Color : "),
+              Flexible(
+                child: TextField(
+                  onChanged: (text) {
+                    iconColor = text;
+                  },
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text("Box Color : "),
+              Flexible(
+                child: TextField(
+                  onChanged: (text) {
+                    boxColor = text;
+                  },
+                ),
+              ),
+            ],
+          ),
+          RaisedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => PreviewScreen(boxColor, iconColor),
+                ),
+              );
+            },
+          )
+        ],
       ),
     );
   }
 }
 
+class SamplePreview extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.red,
+    );
+  }
+}
