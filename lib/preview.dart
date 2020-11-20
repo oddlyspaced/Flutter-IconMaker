@@ -153,6 +153,7 @@ class IconWidget extends StatelessWidget {
             ),
             child: Text(
               title,
+              maxLines: 1,
               style: ThemeConstants.subheading.copyWith(
                 fontSize: 14,
                 color: Color(
