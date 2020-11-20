@@ -25,23 +25,39 @@ class PreviewScreen extends StatelessWidget {
 
 class PreviewWidget extends StatelessWidget {
   final List<String> iconNames = [
-    "Chrome",
+    "App Store",
+    "Apple TV",
+    "Books",
+    "Calendar",
+    "Clock",
+    "Contacts",
+    "Health",
+    "iCloud",
+    "Gmail",
+    "Music",
+    "Photos",
     "Settings",
-    "Twitter",
-    "Files",
-    "Maps",
-    "Facebook",
-    "Photos"
+    "Stocks",
+    "Wave",
+    "Zoom"
   ];
 
   final Map<String, String> icons = {
-    "Chrome": "chrome",
-    "Settings": "settings",
-    "Twitter": "twitter",
-    "Files": "folder",
-    "Maps": "compass",
-    "Facebook": "facebook",
-    "Photos": "image",
+    "App Store": "new_app_store",
+    "Apple TV": "new_apple_tv",
+    "Books": "new_books",
+    "Calendar": "new_calendar",
+    "Clock": "new_clock",
+    "Contacts": "new_contacts",
+    "Health": "new_health",
+    "iCloud": "new_icloud",
+    "Gmail": "new_mail",
+    "Music": "new_music",
+    "Photos": "new_photos",
+    "Settings": "new_settings",
+    "Stocks": "new_stocks",
+    "Wave": "new_wave",
+    "Zoom": "new_zoom",
   };
 
   @override
@@ -99,9 +115,10 @@ class IconWidget extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding: const EdgeInsets.all(0.0),
                 child: SvgPicture.asset(
                   "assets/icons/$icon.svg",
+                  color: Colors.white,
                   //"assets/icons/command.svg",
                 ),
               ),
@@ -125,7 +142,7 @@ class IconWidget extends StatelessWidget {
 }
 
 class BottomRowWidget extends StatelessWidget {
-  final List<String> bottomIcons = ["phone", "message", "chrome", "camera"];
+  final List<String> bottomIcons = ["new_phone", "new_messaging", "new_safari", "new_camera"];
 
   @override
   Widget build(BuildContext context) {
@@ -160,9 +177,10 @@ class BottomRowWidget extends StatelessWidget {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(0.0), // 18 by default
                     child: SvgPicture.asset(
                       "assets/icons/${bottomIcons[index]}.svg",
+                      color: Colors.white,
                       //"assets/icons/command.svg",
                     ),
                   ),
