@@ -66,9 +66,10 @@ class PagerWidget extends StatefulWidget {
 
 class _PagerState extends State<PagerWidget> {
   int index = 0;
-  List<String> titles = ["ICONS" /*, "TEMPLATES", "WALLPAPERS"*/ ];
+  List<String> titles = ["ICONS", "PREVIEW", /*, "TEMPLATES", "WALLPAPERS"*/ ];
   List<Widget> previews = [
     IconListPreview(),
+    SamplePreview(),
     // TemplatePreview(),
     // IconListPreview()
   ];
@@ -343,3 +344,13 @@ class TemplateItem {
   final String title;
   final Color backgroundColor, foregroundColor;
 }
+
+class SamplePreview extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.red,
+    );
+  }
+}
+
