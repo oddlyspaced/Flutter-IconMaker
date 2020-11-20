@@ -2,9 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:projectminimal/theme.dart';
 
+String iconColor;
+String boxColor;
+
 class PreviewScreen extends StatelessWidget {
+  PreviewScreen(this._iconColor, this._boxColor);
+
+  final String _iconColor;
+  final String _boxColor;
+
   @override
   Widget build(BuildContext context) {
+    iconColor = _iconColor;
+    boxColor = _boxColor;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
@@ -110,7 +121,7 @@ class IconWidget extends StatelessWidget {
             aspectRatio: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: ThemeConstants.iconBackground,
+                color: Color(int.parse("0xFF" + boxColor)),
                 borderRadius: BorderRadius.all(
                   Radius.circular(18),
                 ),
@@ -119,7 +130,7 @@ class IconWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(0.0),
                 child: SvgPicture.asset(
                   "assets/icons/$icon.svg",
-                  color: Colors.white,
+                  color: Color(int.parse("0xFF" + iconColor)),
                   //"assets/icons/command.svg",
                 ),
               ),
@@ -172,7 +183,7 @@ class BottomRowWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: ThemeConstants.iconBackground,
+                    color: Color(int.parse("0xFF" + boxColor)),
                     borderRadius: BorderRadius.all(
                       Radius.circular(18),
                     ),
@@ -181,7 +192,7 @@ class BottomRowWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(0.0), // 18 by default
                     child: SvgPicture.asset(
                       "assets/icons/${bottomIcons[index]}.svg",
-                      color: Colors.white,
+                      color: Color(int.parse("0xFF" + iconColor)),
                       //"assets/icons/command.svg",
                     ),
                   ),
