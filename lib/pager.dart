@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:projectminimal/iconlist.dart';
+import 'package:projectminimal/preview.dart';
 import 'package:projectminimal/text_anim.dart';
 import 'package:projectminimal/theme.dart';
 
@@ -348,8 +349,17 @@ class TemplateItem {
 class SamplePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) {
+            return PreviewScreen();
+          }
+        ));
+      },
+      child: Container(
+        color: Colors.red,
+      ),
     );
   }
 }
