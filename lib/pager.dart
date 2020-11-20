@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:projectminimal/iconlist.dart';
 import 'package:projectminimal/preview.dart';
@@ -349,50 +352,112 @@ class TemplateItem {
   final Color backgroundColor, foregroundColor;
 }
 
-class PreviewItem extends StatelessWidget {
+class PreviewItem extends StatefulWidget {
+  @override
+  _PreviewItemState createState() => _PreviewItemState();
+}
+
+class _PreviewItemState extends State<PreviewItem> {
+  String _image;
+
+  _imgFromGallery() async {
+    ImagePicker i = ImagePicker();
+    PickedFile image = await i.getImage(source: ImageSource.gallery);
+
+    print("PATH: " + image.path);
+
+    setState(() {
+      _image = image.path;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    String iconColor = "FFFFFF";
-    String boxColor = "000000";
+    String iconColor = "000000";
+    String boxColor = "FFFFFF";
+    String textColor = "FFFFFF";
 
     return Container(
-      color: Colors.grey,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text("Icon Color : "),
-              Flexible(
-                child: TextField(
-                  onChanged: (text) {
-                    iconColor = text;
-                  },
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(24),
+        ),
+        image: DecorationImage(
+          image: (_image == null)
+              ? AssetImage("assets/wall.jpeg")
+              : FileImage(File(_image)),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  "Icon Color : ",
+                  style: ThemeConstants.title,
                 ),
+                Flexible(
+                  child: TextField(
+                    onChanged: (text) {
+                      iconColor = text;
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  "Box Color : ",
+                  style: ThemeConstants.title,
+                ),
+                Flexible(
+                  child: TextField(
+                    onChanged: (text) {
+                      boxColor = text;
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  "Text Color : ",
+                  style: ThemeConstants.title,
+                ),
+                Flexible(
+                  child: TextField(
+                    onChanged: (text) {
+                      textColor = text;
+                    },
+                  ),
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTap: _imgFromGallery,
+              child: Text(
+                (_image != null) ? _image : "Choose Image",
+                style: ThemeConstants.title,
               ),
-            ],
-          ),
-          Row(
-            children: [
-              Text("Box Color : "),
-              Flexible(
-                child: TextField(
-                  onChanged: (text) {
-                    boxColor = text;
-                  },
-                ),
-              ),
-            ],
-          ),
-          RaisedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => PreviewScreen(boxColor, iconColor),
-                ),
-              );
-            },
-          )
-        ],
+            ),
+            RaisedButton(
+              color: Colors.grey,
+              child: Text("Show Preview"),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => PreviewScreen(boxColor, iconColor, textColor, _image),
+                  ),
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
   }
