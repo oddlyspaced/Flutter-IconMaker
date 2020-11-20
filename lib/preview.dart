@@ -24,8 +24,15 @@ class PreviewScreen extends StatelessWidget {
 }
 
 class PreviewWidget extends StatelessWidget {
-
-  final List<String> iconNames = ["Chrome", "Settings", "Twitter", "Files", "Maps", "Facebook", "Photos"];
+  final List<String> iconNames = [
+    "Chrome",
+    "Settings",
+    "Twitter",
+    "Files",
+    "Maps",
+    "Facebook",
+    "Photos"
+  ];
 
   final Map<String, String> icons = {
     "Chrome": "chrome",
@@ -50,13 +57,20 @@ class PreviewWidget extends StatelessWidget {
         ),
       ),
       child: SafeArea(
-        child: GridView.count(
-          crossAxisCount: 4,
-          childAspectRatio: 0.76,
-          padding: EdgeInsets.all(10),
-          children: List.generate(iconNames.length, (index) {
-            return IconWidget(icons[iconNames[index]], iconNames[index]);
-          }),
+        child: Column(
+          children: [
+            GridView.count(
+              crossAxisCount: 4,
+              shrinkWrap: true,
+              childAspectRatio: 0.76,
+              padding: EdgeInsets.all(10),
+              children: List.generate(iconNames.length, (index) {
+                return IconWidget(icons[iconNames[index]], iconNames[index]);
+              }),
+            ),
+            Spacer(),
+            BottomRowWidget(),
+          ],
         ),
       ),
     );
@@ -65,8 +79,10 @@ class PreviewWidget extends StatelessWidget {
 
 class IconWidget extends StatelessWidget {
   IconWidget(this.icon, this.title);
+
   final String icon;
   final String title;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -113,16 +129,49 @@ class BottomRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: GridView.count(
-        crossAxisCount: 4,
-        childAspectRatio: 1,
-        padding: EdgeInsets.all(10),
-        children: List.generate(bottomIcons.length, (index) {
-          return IconWidget(bottomIcons[index], "");
-        }),
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          bottom: 5,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey,
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                32,
+              ),
+            ),
+          ),
+          child: GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 4,
+            childAspectRatio: 1,
+            padding: EdgeInsets.all(5),
+            children: List.generate(bottomIcons.length, (index) {
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ThemeConstants.iconBackground,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(18),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: SvgPicture.asset(
+                      "assets/icons/${bottomIcons[index]}.svg",
+                      //"assets/icons/command.svg",
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+        ),
       ),
-
     );
   }
 }
